@@ -174,6 +174,3 @@ Here are some screenshots of the Skill UP application:
 ![Main Page](images/main_page.png)
 
 
-
-Upload the images to the `images/` folder in the repository and make sure they are correctly referenced here.
-
