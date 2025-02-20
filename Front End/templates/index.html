@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillUp - Career Development Platform</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="/" class="logo pulse">SKILLUP</a>
+                <p class="tagline">Career Development Platform</p>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item active">
+                    <a href="#form-section" class="sidebar-link">
+                        <i class="fas fa-rocket"></i>
+                        <span>Career Analysis</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#results-section" class="sidebar-link">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Recommendations</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#testimonials-section" class="sidebar-link">
+                        <i class="fas fa-users"></i>
+                        <span>Testimonials</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <p>© 2023 SkillUp</p>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            
+            <header class="main-header">
+                <div class="header-content">
+                    <button id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="nav-links">
+                        <a href="/">Home</a>
+                        <a href="/">About</a>
+                        <a href="/">Services</a>
+                        <a href="/">Blog</a>
+                        <a href="/">Contact</a>
+                    </div>
+                    <div id="user-section" style="display: none;">
+                        <button id="logout-btn" class="logout-button">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h2>Unlock Your Career Potential</h2>
+                    <p>Get personalized career recommendations, skill-building resources, and job opportunities tailored just for you.</p>
+                    <a href="#form-section" class="cta-btn">Get Started</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://static.vecteezy.com/system/resources/previews/002/239/960/non_2x/businessman-walking-on-cubes-with-text-career-symbol-to-reach-shiny-star-career-growth-and-development-concept-illustration-vector.jpg" alt="Career Growth Illustration">
+                </div>
+            </section>
+
+            <!-- Form Section -->
+            <section id="form-section" class="form-section">
+                <div class="form-card">
+                    <h2 class="form-title">
+                        <i class="fas fa-rocket floating"></i>
+                        Career Profile Analysis
+                    </h2>
+                    <form id="resource-form" class="career-form">
+                        <div class="form-group">
+                            <label for="role"><i class="fas fa-user-tie"></i> Current Role</label>
+                            <input type="text" id="role" name="role" placeholder="Software Developer">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skills"><i class="fas fa-tools"></i> Existing Skills</label>
+                            <input type="text" id="skills" name="skills" placeholder="Python, JavaScript, SQL">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="skill-gaps"><i class="fas fa-chart-line"></i> Skill Gaps</label>
+                            <input type="text" id="skill-gaps" name="skill_gaps" placeholder="Machine Learning, AWS">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="career-ambitions"><i class="fas fa-bullseye"></i> Career Goals</label>
+                            <input type="text" id="career-ambitions" name="career_ambitions" placeholder="Senior Developer, Tech Lead">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="language"><i class="fas fa-language"></i> Preferred Language</label>
+                            <input type="text" id="language" name="language" placeholder="English, Spanish">
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            Generate Career Plan <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <script src='https://cdn.jotfor.ms/s/umd/latest/for-embedded-agent.js'></script>
+<script>
+  window.addEventListener("DOMContentLoaded", function() {
+    window.AgentInitializer.init({
+      agentRenderURL: "https://agent.jotform.com/019521919b147b95a6436497a4769199e251",
+      rootId: "JotformAgent-019521919b147b95a6436497a4769199e251",
+      formID: "019521919b147b95a6436497a4769199e251",
+      queryParams: ["skipWelcome=1", "maximizable=1"],
+      domain: "https://www.jotform.com",
+      isDraggable: false,
+      background: "linear-gradient(180deg, #C8CEED 0%, #C8CEED 100%)",
+      buttonBackgroundColor: "#0a1551",
+      buttonIconColor: "#fff",
+      variant: false,
+      customizations: {
+        "greeting": "Yes",
+        "greetingMessage": "Hi! How can I assist you?",
+        "pulse": "Yes",
+        "position": "right"
+      },
+      isVoice: false
+    });
+  });
+</script>
+
+            <!-- Results Section -->
+            <section id="results-section" class="results-section">
+                <div class="results-card">
+                    <h2 class="results-title">
+                        <i class="fas fa-lightbulb pulse" style="color: #ffd700"></i>
+                        Personalized Recommendations
+                    </h2>
+
+                    <div class="recommendation-category" style="animation-delay: 0.2s">
+                        <div class="category-header course-bg">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Learning Path</h3>
+                        </div>
+                        <ul id="courses" class="recommendation-list"></ul>
+                    </div>
+
+                    <div class="recommendation-category" style="animation-delay: 0.4s">
+                        <div class="category-header video-bg">
+                            <i class="fas fa-video"></i>
+                            <h3>Video Resources</h3>
+                        </div>
+                        <ul id="videos" class="recommendation-list"></ul>
+                    </div>
+
+                    <div class="recommendation-category" style="animation-delay: 0.6s">
+                        <div class="category-header job-bg">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Job Opportunities</h3>
+                        </div>
+                        <ul id="jobs" class="recommendation-list"></ul>
+                    </div>
+                     <div class="recommendation-category" style="animation-delay: 0.8s">
+                        <div class="category-header roadmap-bg">
+                            <i class="fas fa-map-signs"></i>
+                            <h3>Roadmap</h3>
+                        </div>
+                        <ol id="roadmap" class="recommendation-list"></ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section id="testimonials-section" class="testimonials-section">
+                <h2>What Our Users Say</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <img src="https://cdn.lucidpic.com/cdn-cgi/image/w=600,format=auto,metadata=none/66c4384702f8f.png" alt="User 1">
+                        <p>"SkillUp helped me identify my skill gaps and provided a clear roadmap to achieve my career goals."</p>
+                        <span>- John Doe</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrm0eQ7LwGAP_t6m7osDxmqNTGhRT1ff2ahw&s" alt="User 2">
+                        <p>"The personalized recommendations were spot on. I landed my dream job within 3 months!"</p>
+                        <span>- Jane Smith</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Check if the user is logged in
+        const token = localStorage.getItem('token');
+        const userSection = document.getElementById('user-section');
+        const logoutOption = document.getElementById('logout-option');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        const mainHeader = document.querySelector('.main-header');
+        const mainContent = document.querySelector('.main-content');
+    
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('closed');
+            mainHeader.classList.toggle('sidebar-closed');
+            mainContent.classList.toggle('sidebar-closed');
+        });
+    
+        if (token) {
+            // Show user section if logged in
+            userSection.style.display = 'block';
+        
+            // Logout functionality
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('token'); // Clear the token
+                window.location.href = '/login1.html'; // Redirect to login page
+            });
+        }
+    
+        // Form submission logic 
+        document.getElementById('resource-form').onsubmit = async function (e) {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('button');
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Analyzing...`;
+            submitBtn.disabled = true;
+    
+            try {
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+    
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Include the token in the request
+                    },
+                    body: JSON.stringify(data),
+                });
+    
+                const recommendations = await response.json();
+                const coursesList = document.querySelector('#courses');
+                const videosList = document.querySelector('#videos');
+                const jobsList = document.querySelector('#jobs');
+                const roadmapList = document.querySelector('#roadmap');
+    
+                [coursesList, videosList, jobsList, roadmapList].forEach(list => list.innerHTML = '');
+    
+                if (recommendations.message) alert(recommendations.message);
+    
+                const createListItem = (content, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = content;
+                    li.style.animationDelay = `${index * 0.1}s`;
+                    return li;
+                };
+    
+                recommendations.courses.forEach((course, index) => {
+                    coursesList.appendChild(createListItem(`
+                        <a href="${course.link}" target="_blank" class="resource-link">
+                            <i class="fas fa-book-open"></i>
+                            <div>
+                                <strong>${course.name}</strong>
+                                <span class="platform">${course.platform}</span>
+                            </div>
+                        </a>
+                    `, index));
+                });
+    
+                recommendations.videos.forEach((video, index) => {
+                    videosList.appendChild(createListItem(`
+                        <a href="${video.link}" target="_blank" class="resource-link">
+                            <i class="fas fa-film"></i>
+                            <div>
+                                <strong>${video.name}</strong>
+                                <span class="platform">${video.platform}</span>
+                            </div>
+                        </a>
+                    `, index));
+                });
+    
+                recommendations.jobs.forEach((job, index) => {
+                    jobsList.appendChild(createListItem(`
+                        <a href="${job.link}" target="_blank" class="resource-link">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <strong>${job.title}</strong>
+                                <span class="company">${job.company}</span>
+                            </div>
+                        </a>
+                    `, index));
+                });
+    
+                recommendations.roadmap.forEach((step, index) => {
+                    roadmapList.appendChild(createListItem(`
+                        <div class="roadmap-step">
+                            <strong>${step.step}</strong>
+                            <p>${step.description}</p>
+                        </div>
+                    `, index));
+                });
+    
+                document.querySelectorAll('.recommendation-list li').forEach(li => {
+                    li.style.opacity = '1';
+                    li.style.transform = 'translateX(0)';
+                });
+    
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request');
+            } finally {
+                submitBtn.innerHTML = `Generate Career Plan <i class="fas fa-arrow-right"></i>`;
+                submitBtn.disabled = false;
+            }
+        };
+    
+        // Add active class to sidebar links
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                // Remove active class from all links
+                sidebarLinks.forEach(l => l.parentElement.classList.remove('active'));
+                // Add active class to the clicked link's parent
+                this.parentElement.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

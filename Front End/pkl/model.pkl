@@ -1,0 +1,437 @@
+import os
+import pickle
+from google.auth.transport.requests import Request
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+import webbrowser
+import base64
+import pandas as pd
+import re
+
+# If modifying these scopes, delete the file token.pickle.
+SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
+
+def get_gmail_service():
+    """Authenticates with Gmail API and returns the Gmail service object."""
+    creds = None
+
+    # Load token if it exists
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+
+    # If no token is present, get new authentication
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+               'resources/credentials.json', SCOPES)
+
+            auth_url, _ = flow.authorization_url(prompt='consent')
+            print("Please visit this URL in your browser: {}".format(auth_url))
+            webbrowser.open(auth_url, new=2) # Open the URL in the browser
+
+            code = input('Enter the authorization code: ')
+            flow.fetch_token(code=code)
+            creds = flow.credentials
+        # Save the credentials for future runs
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('gmail', 'v1', credentials=creds)
+    return service
+
+
+def get_message_content(service, message_id, user_id='me'):
+    message = service.users().messages().get(userId=user_id, id=message_id, format='full').execute()
+    payload = message['payload']
+
+    content = "no text content"
+
+    if 'parts' in payload:
+      parts = payload['parts']
+      for part in parts:
+          if part['mimeType'] == 'text/plain':
+              # Check if 'data' key exists before accessing it
+              if 'data' in part['body']:
+                  data = part['body']['data']
+                  decoded_data = base64.urlsafe_b64decode(data).decode('utf-8')
+                  content = decoded_data
+                  break  # Exit loop after finding text/plain content
+    # Check if 'body' key exists and then check for 'data' key within 'body' # This line is added
+    elif 'body' in payload and 'data' in payload['body']:
+      data = payload['body']['data']
+      decoded_data = base64.urlsafe_b64decode(data).decode('utf-8')
+      content = decoded_data
+
+    headers = {}
+    if 'headers' in payload:
+      for header in payload['headers']:
+         headers[header['name']] = header['value']
+
+    subject = headers.get('Subject',"")
+    sender = headers.get('From',"")
+
+    return  {'message_id': message_id, 'subject': subject, 'sender':sender, 'content': content}
+
+
+def fetch_all_emails(service, user_id='me', max_results=100):
+    """Fetches all emails from the inbox, ordered from newest to oldest."""
+
+    email_list = []
+    results = service.users().messages().list(userId=user_id, maxResults=max_results).execute()
+    messages = results.get('messages', [])
+
+    for message in messages:
+      email_data = get_message_content(service,message['id'],user_id)
+      email_list.append(email_data)
+
+    return email_list
+
+job_names = [
+    "Software Engineer",
+    "Data Scientist",
+    "Product Manager",
+    "UI/UX Designer",
+    "Cloud Architect",
+    "AI/ML Engineer",
+    "Full-Stack Developer",
+    "DevOps Engineer",
+    "Cybersecurity Analyst",
+    "Business Analyst",
+    "Digital Marketing Specialist",
+    "Sales Executive",
+    "Human Resources Manager",
+    "Mechanical Engineer",
+    "Electrical Engineer",
+    "Civil Engineer",
+    "Content Writer",
+    "Graphic Designer",
+    "Project Manager",
+    "Data Analyst",
+    "Customer Support Representative",
+    "Network Administrator",
+    "Quality Assurance Engineer",
+    "Financial Analyst",
+    "Research Scientist",
+    "Operations Manager",
+    "Game Developer",
+    "Database Administrator",
+    "SEO Specialist",
+    "Marketing Manager"
+]
+
+
+def extract_insights(text):
+    job_history_keywords = [
+        "previous role", "past experience", "employment history", "worked at", "responsibilities included",
+        "managed", "led", "achieved", "past job", "former position", "roles at", "job position", "employment", "experience",
+        "during the time", "in the role of", "before this", "after that", "prior to that", "during my tenure at","fresher"
+    ]
+    skills_keywords = [
+        "proficient in", "experienced with", "knowledge of", "familiar with", "expertise in", "ability to", "skills in", "skill set includes",
+        "strong in", "competent in", "versed in", "trained in", "adept at", "mastery of", "specialized in",
+        "technical skill", "management skill", "interpersonal skill" , "soft skill", "hard skill"
+    ]
+    training_keywords = [
+        "training program", "certification", "coursework", "workshop", "seminar", "online course", "training in", "training on",
+        "certified in", "completed", "attended", "bootcamp", "learning program", "educational program", "studied", "degree in", "certificate in"
+    ]
+    feedback_keywords = [
+        "feedback on", "performance review", "client satisfaction", "positive review", "negative review", "constructive criticism",
+        "improvement area", "areas for development", "comments on", "evaluation of", "rated as", "scored", "recommendation", "testimonial",
+        "praise for", "critique of", "input on", "suggested that" , "response to feedback"
+    ]
+
+    job_history_pattern = r"(?:(?:previous|past|former)\s+role:|employment(?:ed)?\s+history:|worked\s+at|responsibilities\s+included|managed|led|achieved|during\s+my\s+tenure\s+at|in\s+the\s+role\s+of|before\s+this|after\s+that|prior\s+to\s+that)(.*?\.)(?=\s*(?:(?:previous|past|former)\s+role:|employment(?:ed)?\s+history:|worked\s+at|responsibilities\s+included|managed|led|achieved|during\s+my\s+tenure\s+at|in\s+the\s+role\s+of|before\s+this|after\s+that|prior\s+to\s+that)|$)"
+
+    skills_pattern = r"(?:(?:proficient|experienced|knowledge|familiar|expertise)\s+in|ability\s+to|skills\s+in|strong\s+in|competent\s+in|versed\s+in|trained\s+in|adept\s+at|mastery\s+of|specialized\s+in)(.*?)(?=\s*(?:(?:proficient|experienced|knowledge|familiar|expertise)\s+in|ability\s+to|skills\s+in|strong\s+in|competent\s+in|versed\s+in|trained\s+in|adept\s+at|mastery\s+of|specialized\s+in)|$)"
+
+    training_pattern = r"(?:(?:training|certification|coursework|workshop|seminar|online course)\s+in|certified\s+in|completed|attended|bootcamp|learning\s+program|educational\s+program|studied|degree\s+in|certificate\s+in)(.*?)(?=\s*(?:(?:training|certification|coursework|workshop|seminar|online course)\s+in|certified\s+in|completed|attended|bootcamp|learning\s+program|educational\s+program|studied|degree\s+in|certificate\s+in)|$)"
+
+    feedback_pattern = r"(?:(?:feedback|review|client satisfaction|positive review|negative review|constructive criticism)\s+on|improvement\s+area|areas\s+for\s+development|comments\s+on|evaluation\s+of|rated\s+as|scored|recommendation|testimonial|praise\s+for|critique\s+of|input\s+on|suggested\s+that|response\s+to\s+feedback)(.*?)(?=\s*(?:(?:feedback|review|client satisfaction|positive review|negative review|constructive criticism)\s+on|improvement\s+area|areas\s+for\s+development|comments\s+on|evaluation\s+of|rated\s+as|scored|recommendation|testimonial|praise\s+for|critique\s+of|input\s+on|suggested\s+that|response\s+to\s+feedback)|$)"
+
+    extracted_jobs = []
+    for job in job_names:
+       if re.search(r'\b' + re.escape(job) + r'\b',text, re.IGNORECASE):
+          extracted_jobs.append(job)
+
+    job_history = re.findall(job_history_pattern, text, re.IGNORECASE)
+    skills = re.findall(skills_pattern, text, re.IGNORECASE)
+    training = re.findall(training_pattern, text, re.IGNORECASE)
+    feedback = re.findall(feedback_pattern, text, re.IGNORECASE)
+
+    return {
+        "jobs": extracted_jobs,
+        "job_history": job_history,
+        "skills": skills,
+        "training": training,
+        "feedback": feedback,
+    }
+
+# Simple database of resources (can be improved for real application)
+
+online_resources = {
+    # Technical Domains
+    "software engineer": {
+        "courses": [
+            {"name": "Software Engineering Master Track", "link": "https://www.coursera.org/professional-certificates/software-engineering-master-track", "platform": "Coursera"},
+            {"name": "CS50's Introduction to Computer Science", "link": "https://www.edx.org/course/introduction-computer-science-harvardx-cs50x", "platform": "edX"},
+            {"name": "Clean Code: Writing Code for Humans", "link": "https://www.udemy.com/course/writing-clean-code/", "platform": "Udemy"},
+            {"name": "Full Stack Web Development", "link": "https://www.coursera.org/specializations/full-stack", "platform": "Coursera"}
+        ],
+        "videos": [
+            {"name": "Software Engineering Playlist", "link": "https://www.youtube.com/playlist?list=PLWKjhJtqVnxf9N2EwU76v72Vw01d3h11J", "platform": "YouTube"},
+            {"name": "Clean Code Explained", "link": "https://www.youtube.com/watch?v=ZI3q-_vjSZE", "platform": "YouTube"}
+        ]
+    },
+    "data scientist": {
+        "courses": [
+            {"name": "Data Science Specialization", "link": "https://www.coursera.org/specializations/jhu-data-science", "platform": "Coursera"},
+            {"name": "Python for Data Science", "link": "https://www.edx.org/professional-certificate/uc-berkeleyx-python-for-data-science", "platform": "edX"},
+            {"name": "Advanced Data Analysis", "link": "https://www.udemy.com/course/advanced-data-analysis-python/", "platform": "Udemy"}
+        ],
+        "videos": [
+            {"name": "Data Science with Python", "link": "https://www.youtube.com/watch?v=5qS-j0Yw49k", "platform": "YouTube"},
+            {"name": "Statistics for Data Science", "link": "https://www.youtube.com/watch?v=xxpc-HPKN28", "platform": "YouTube"}
+        ]
+    },
+    "AIML engineer": {
+        "courses": [
+            {"name": "Machine Learning Specialization", "link": "https://www.coursera.org/specializations/machine-learning", "platform": "Coursera"},
+            {"name": "Deep Learning Specialization", "link": "https://www.coursera.org/specializations/deep-learning", "platform": "Coursera"},
+            {"name": "AI for Everyone", "link": "https://www.coursera.org/learn/ai-for-everyone", "platform": "Coursera"}
+        ],
+        "videos": [
+            {"name": "Machine Learning Fundamentals", "link": "https://www.youtube.com/watch?v=GIsg-Zp4mXU", "platform": "YouTube"},
+            {"name": "Deep Learning Basics", "link": "https://www.youtube.com/watch?v=aircAruvnKk", "platform": "YouTube"}
+        ]
+    },
+    "UI/UX designer": {
+        "courses": [
+            {"name": "Google UX Design Professional Certificate", "link": "https://www.coursera.org/professional-certificates/google-ux-design", "platform": "Coursera"},
+            {"name": "UI/UX Design Specialization", "link": "https://www.coursera.org/specializations/ui-ux-design", "platform": "Coursera"},
+            {"name": "Adobe XD Masterclass", "link": "https://www.udemy.com/course/adobe-xd-masterclass-ui-ux-design/", "platform": "Udemy"}
+        ],
+        "videos": [
+            {"name": "UI/UX Design Fundamentals", "link": "https://www.youtube.com/watch?v=cT1-kK1_h58", "platform": "YouTube"},
+            {"name": "Design Thinking Process", "link": "https://www.youtube.com/watch?v=_r0VX-aU_T8", "platform": "YouTube"}
+        ]
+
+    },
+    # Non-Tech Domains
+    "digital marketer": {
+        "courses": [
+            {"name": "Digital Marketing Specialization", "link": "https://www.coursera.org/specializations/digital-marketing", "platform": "Coursera"},
+            {"name": "Google Digital Marketing Certification", "link": "https://learndigital.withgoogle.com/digitalgarage/course/digital-marketing", "platform": "Google"},
+            {"name": "SEO for Beginners", "link": "https://www.udemy.com/course/seo-for-beginners/", "platform": "Udemy"}
+        ],
+        "videos": [
+            {"name": "Introduction to Digital Marketing", "link": "https://www.youtube.com/watch?v=DvwS7cV9GmQ", "platform": "YouTube"},
+            {"name": "Content Marketing Strategy", "link": "https://www.youtube.com/watch?v=hJhR8yLoDfE", "platform": "YouTube"}
+        ]
+    },
+    "content writer": {
+        "courses": [
+            {"name": "Creative Writing Specialization", "link": "https://www.coursera.org/specializations/creative-writing", "platform": "Coursera"},
+            {"name": "Writing for the Web", "link": "https://www.udemy.com/course/writing-for-the-web/", "platform": "Udemy"},
+            {"name": "Copywriting for Beginners", "link": "https://www.udemy.com/course/copywriting-secrets/", "platform": "Udemy"}
+        ],
+        "videos": [
+            {"name": "Content Writing Tips", "link": "https://www.youtube.com/watch?v=NYL2Vtmbh38", "platform": "YouTube"},
+            {"name": "How to Write Blog Posts", "link": "https://www.youtube.com/watch?v=9H6GCe7hmmg", "platform": "YouTube"}
+        ]
+    },
+    "graphic designer": {
+        "courses": [
+            {"name": "Graphic Design Specialization", "link": "https://www.coursera.org/specializations/graphic-design", "platform": "Coursera"},
+            {"name": "Adobe Photoshop for Beginners", "link": "https://www.udemy.com/course/adobe-photoshop-course/", "platform": "Udemy"},
+            {"name": "Canva Design Basics", "link": "https://www.udemy.com/course/canva-design-course/", "platform": "Udemy"}
+        ],
+        "videos": [
+            {"name": "Graphic Design Basics", "link": "https://www.youtube.com/watch?v=V-NWV3B1gLE", "platform": "YouTube"},
+            {"name": "Color Theory for Designers", "link": "https://www.youtube.com/watch?v=3Q0LnSOrAm4", "platform": "YouTube"}
+        ]
+    },
+    "financial analyst": {
+        "courses": [
+            {"name": "Financial Analyst Certification Program", "link": "https://corporatefinanceinstitute.com/certifications/financial-analyst-training-program-fmva/", "platform": "CFI"},
+            {"name": "Investment Management Specialization", "link": "https://www.coursera.org/specializations/investment-management", "platform": "Coursera"},
+            {"name": "Excel for Finance", "link": "https://www.udemy.com/course/excel-for-finance-and-accounting/", "platform": "Udemy"}
+        ],
+        "videos": [
+            {"name": "Introduction to Financial Analysis", "link": "https://www.youtube.com/watch?v=nb91cXJ9z0k", "platform": "YouTube"},
+            {"name": "Understanding Financial Statements", "link": "https://www.youtube.com/watch?v=RhdxUs7XfP4", "platform": "YouTube"}
+        ]
+    },
+    "cybersecurity specialist": {
+        "courses": [
+            {"name": "Cybersecurity Specialization", "link": "https://www.coursera.org/specializations/cyber-security", "platform": "Coursera"},
+            {"name": "Certified Ethical Hacker (CEH)", "link": "https://www.eccouncil.org/trainings/certified-ethical-hacker/", "platform": "EC-Council"}
+        ],
+        "videos": [
+            {"name": "Introduction to Cybersecurity", "link": "https://www.youtube.com/watch?v=fNzpcB7ODxQ", "platform": "YouTube"}
+        ]
+    },
+    "cloud engineer": {
+        "courses": [
+            {"name": "Google Cloud Professional Cloud Architect", "link": "https://www.coursera.org/professional-certificates/google-cloud-architect", "platform": "Coursera"},
+            {"name": "AWS Certified Solutions Architect", "link": "https://aws.amazon.com/certification/certified-solutions-architect-associate/", "platform": "AWS"}
+        ],
+        "videos": [
+            {"name": "AWS Basics", "link": "https://www.youtube.com/watch?v=ulprqHHWlng", "platform": "YouTube"}
+        ]
+    },
+    "blockchain developer": {
+        "courses": [
+            {"name": "Blockchain Specialization", "link": "https://www.coursera.org/specializations/blockchain", "platform": "Coursera"},
+            {"name": "Ethereum and Solidity", "link": "https://www.udemy.com/course/ethereum-and-solidity-the-complete-developers-guide/", "platform": "Udemy"}
+        ],
+        "videos": [
+            {"name": "Blockchain Basics", "link": "https://www.youtube.com/watch?v=SSo_EIwHSd4", "platform": "YouTube"}
+        ]
+    }
+  }
+
+
+job_openings = {
+    "software engineer": [
+        {"title": "Software Engineer", "link": "https://www.example.com/software-engineer1", "company": "Acme Corp"},
+        {"title": "Senior Software Engineer", "link": "https://www.example.com/software-engineer2", "company": "Beta Co"}
+    ],
+    "data scientist": [
+        {"title": "Data Scientist", "link": "https://www.example.com/data-scientist1", "company": "Gamma Inc"},
+        {"title": "Senior Data Scientist", "link": "https://www.example.com/data-scientist2", "company": "Delta Co"}
+    ],
+    "digital marketer": [
+        {"title": "Digital Marketing Specialist", "link": "https://www.example.com/digital-marketer1", "company": "MarketingPro"},
+        {"title": "SEO Analyst", "link": "https://www.example.com/seo-analyst", "company": "SearchTech"}
+    ],
+    "content writer": [
+        {"title": "Content Writer", "link": "https://www.example.com/content-writer", "company": "WriteWell"},
+        {"title": "Copywriter", "link": "https://www.example.com/copywriter", "company": "AdText"}
+    ],
+    "graphic designer": [
+        {"title": "Graphic Designer", "link": "https://www.example.com/graphic-designer", "company": "DesignHub"},
+        {"title": "Creative Visualizer", "link": "https://www.example.com/creative-visualizer", "company": "VisualWorks"}
+    ],
+    "financial analyst": [
+        {"title": "Financial Analyst", "link": "https://www.example.com/financial-analyst", "company": "FinCorp"},
+        {"title": "Investment Analyst", "link": "https://www.example.com/investment-analyst", "company": "InvestWell"}
+    ],
+    "cybersecurity specialist": [
+        {"title": "Cybersecurity Analyst", "link": "https://www.example.com/cybersecurity-analyst", "company": "SecureTech"},
+        {"title": "Penetration Tester", "link": "https://www.example.com/penetration-tester", "company": "CyberProtect"}
+    ],
+    "cloud engineer": [
+        {"title": "Cloud Architect", "link": "https://www.example.com/cloud-architect", "company": "Cloudify"},
+        {"title": "DevOps Engineer", "link": "https://www.example.com/devops-engineer", "company": "BuildTech"}
+    ],
+    "blockchain developer": [
+        {"title": "Blockchain Engineer", "link": "https://www.example.com/blockchain-engineer", "company": "LedgerTech"},
+        {"title": "Smart Contract Developer", "link": "https://www.example.com/smart-contract-developer", "company": "CryptoHub"}
+    ]
+}
+
+
+
+def recommend_resources(user_profile, language):
+    recommendations = {"courses": [], "videos": [], "jobs":[]}
+
+    combined_skills = user_profile["skills"] + user_profile["jobs"]
+
+    if user_profile.get('current_role'):
+       combined_skills.append(user_profile["current_role"])
+
+    if user_profile.get('skill_gaps'):
+       combined_skills.append(user_profile["skill_gaps"])
+
+    if user_profile.get('career_ambitions'):
+       combined_skills.append(user_profile["career_ambitions"])
+
+    for skill in combined_skills:
+        if skill in online_resources:
+          recommendations["courses"].extend(online_resources[skill].get("courses",[]))
+          recommendations["videos"].extend(online_resources[skill].get("videos",[]))
+
+    for job_title in user_profile["jobs"]:
+      if job_title in job_openings:
+          recommendations["jobs"].extend(job_openings[job_title])
+      if job_title in job_openings:
+         recommendations["jobs"].extend(job_openings[job_title])
+    if user_profile.get("career_ambitions") and  user_profile.get("career_ambitions") in job_openings:
+         recommendations["jobs"].extend(job_openings[user_profile.get("career_ambitions")])
+
+
+    print(f"\nRecommendations (in {language}):")
+
+    if recommendations['courses']:
+      print("\nRecommended Courses:")
+      for course in recommendations['courses']:
+         print(f"- {course['name']} (link: {course['link']}, platform: {course['platform']})")
+
+    if recommendations['videos']:
+      print("\nRecommended Videos:")
+      for video in recommendations['videos']:
+         print(f"- {video['name']} (link: {video['link']}, platform: {video['platform']})")
+
+    if recommendations['jobs']:
+      print("\nJob Opportunities:")
+      for job in recommendations['jobs']:
+          print(f"- {job['title']} at {job['company']} (link: {job['link']})")
+
+
+def prompt_user_and_recommend(user_profile):
+
+    language = input("Please enter your preferred language (English, Bengali, Hindi, Spanish, French, etc.): ")
+    print("Now let's ask some questions to better understand your needs:")
+
+    current_role = input("What is your current role or job title? ").lower()
+    skill_gaps = input("What are the skill gaps you'd like to address? ").lower()
+    career_ambitions = input("What are your career ambitions? ").lower()
+
+    updated_profile = {
+        "jobs":  user_profile["jobs"],
+        "job_history": user_profile["job_history"],
+        "skills": user_profile["skills"],
+        "training": user_profile["training"],
+        "feedback": user_profile["feedback"],
+         "current_role": current_role,
+         "skill_gaps": skill_gaps,
+         "career_ambitions":career_ambitions
+    }
+
+    recommend_resources(updated_profile, language)
+
+
+def should_continue():
+    while True:
+        choice = input("Do you want to continue with another email? (y/n): ").lower()
+        if choice in ['y', 'n']:
+            return choice == 'y'
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
+
+
+if __name__ == '__main__':
+    gmail_service = get_gmail_service()
+    email_data = fetch_all_emails(gmail_service, max_results=5) # You can change the max results
+    df = pd.DataFrame(email_data)
+
+    df[['jobs','job_history','skills','training','feedback']] = df['content'].apply(lambda content: pd.Series(extract_insights(content)))
+
+    for index, row in df.iterrows():
+        print(f"Message ID: {row['message_id']}")
+        print(f"Jobs: {row['jobs']}")
+        print(f"Job History: {row['job_history']}")
+        print(f"Skills: {row['skills']}")
+        print(f"Training: {row['training']}")
+        print(f"Feedback: {row['feedback']}")
+        print("-" * 30)
+
+        user_profile = row[['jobs','job_history','skills','training','feedback']].to_dict()
+        prompt_user_and_recommend(user_profile)
+        if not should_continue():
+            print("Exiting the program.")
+            break

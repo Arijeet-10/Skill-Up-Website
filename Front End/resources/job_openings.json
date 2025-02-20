@@ -1,0 +1,359 @@
+{
+    "data analyst": [
+        {
+            "title": "Data Analyst",
+            "link": "https://www.foundit.in/job/data-analyst-lynk-delhi-31205430?utm_campaign=google_jobs_apply",
+            "company": "Energy Aspects"
+        },
+        {
+            "title": "Senior Data Analyst",
+            "link": "https://in.trabajo.org/job-3150-44553ee01fde049f939d8de7f0c0a902?utm_campaign=google_jobs_apply",
+            "company": "Wipro"
+        },
+        {
+            "title": "Data Analyst, Marketing Analytics",
+            "link": "https://www.indeed.com/q-data-analyst-marketing-l-remote-jobs.html?vjk=1234abcd",
+            "company": "Marketing Pros Inc."
+        },
+        {
+            "title": "Business Intelligence Analyst",
+            "link": "https://www.linkedin.com/jobs/view/business-intelligence-analyst-at-somecompany-1234567890/",
+            "company": "Global Analytics Solutions"
+        },
+        {
+            "title": "Junior Data Analyst",
+            "link": "https://www.glassdoor.com/Job/junior-data-analyst-jobs-SRCH_KO0,18.htm",
+            "company": "Data Insights Group"
+        }
+    ],
+    "software engineer": [
+        {
+            "title": "Software Engineer",
+            "link": "https://www.coursera.org/articles/software-engineer?form=MG0AV3",
+            "company": "Acme Corp"
+        },
+        {
+            "title": "Senior Software Engineer",
+            "link": "https://www.theforage.com/blog/careers/software-engineering-resources?form=MG0AV3",
+            "company": "Beta Co"
+        },
+        {
+            "title": "Frontend Software Engineer",
+            "link": "https://www.indeed.com/jobs?q=frontend+software+engineer&l=",
+            "company": "User Interface Experts"
+        },
+        {
+            "title": "Backend Software Engineer (Python)",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Backend%20Software%20Engineer%20Python",
+            "company": "Scalable Systems Ltd."
+        },
+        {
+            "title": "Full Stack Software Engineer",
+            "link": "https://www.glassdoor.com/Job/full-stack-software-engineer-jobs-SRCH_KO0,29.htm",
+            "company": "Web Solutions Innovators"
+        },
+        {
+            "title": "Software Engineer - Machine Learning",
+            "link": "https://example-ml-jobs.com/job/12345",
+            "company": "AI Innovations Corp"
+        }
+    ],
+    "project manager": [
+        {
+            "title": "Project Manager",
+            "link": "https://www.indeed.com/jobs?q=project+manager&l=",
+            "company": "Global Solutions Inc."
+        },
+        {
+            "title": "IT Project Manager",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=IT%20Project%20Manager",
+            "company": "TechForward Consulting"
+        },
+        {
+            "title": "Senior Project Manager",
+            "link": "https://www.glassdoor.com/Job/senior-project-manager-jobs-SRCH_KO0,22.htm",
+            "company": "Strategic Initiatives Group"
+        },
+        {
+            "title": "Project Manager, Construction",
+            "link": "https://www.example-construction-jobs.com/pm-role",
+            "company": "BuildRight Corp."
+        },
+        {
+           "title": "Agile Project Manager",
+            "link": "https://www.indeed.com/jobs?q=agile+project+manager",
+            "company": "InnovateAgile Solutions"
+        }
+    ],
+    "sales representative": [
+        {
+            "title": "Sales Representative",
+            "link": "https://www.indeed.com/jobs?q=sales+representative&l=",
+            "company": "SalesForce United"
+        },
+        {
+            "title": "Account Manager",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Account%20Manager",
+            "company": "Client Relations Co."
+        },
+        {
+            "title": "Business Development Representative",
+            "link": "https://www.glassdoor.com/Job/business-development-representative-jobs-SRCH_KO0,36.htm",
+            "company": "Growth Partners Inc."
+        },
+        {
+            "title": "Inside Sales Representative",
+            "link": "https://www.example-insidesales.com/job/9876",
+            "company": "Direct Sales Solutions"
+        },
+        {
+            "title": "Technical Sales Representative",
+            "link": "https://www.indeed.com/jobs?q=technical+sales+representative",
+            "company": "Tech Sales Experts"
+        }
+    ],
+    "human resources": [
+      {
+          "title": "Human Resources Generalist",
+          "link": "https://www.indeed.com/q-human-resources-generalist-jobs.html",
+          "company": "PeopleFirst Solutions"
+      },
+      {
+          "title": "HR Manager",
+          "link": "https://www.linkedin.com/jobs/search/?keywords=HR%20Manager",
+          "company": "Talent Management Inc."
+      },
+      {
+           "title": "Recruiter",
+           "link": "https://www.glassdoor.com/Job/recruiter-jobs-SRCH_KO0,9.htm",
+           "company": "Staffing Solutions Group"
+      },
+      {
+          "title": "HR Business Partner",
+          "link": "https://www.example-hrbp-jobs.com/hrbp-role",
+          "company": "Strategic HR Consulting"
+      },
+      {
+          "title": "Compensation and Benefits Specialist",
+          "link": "https://www.indeed.com/jobs?q=compensation+and+benefits+specialist",
+          "company": "Total Rewards Co."
+      }
+    ],
+    "data scientist": [
+        {
+            "title": "Data Scientist",
+            "link": "https://www.coursera.org/specializations/jhu-data-science?form=MG0AV3",
+            "company": "Gamma Inc"
+        },
+        {
+            "title": "Senior Data Scientist",
+            "link": "https://www.edx.org/certificates/professional-certificate/harvardx-data-science?form=MG0AV3",
+            "company": "Delta Co"
+        },
+        {
+            "title": "Machine Learning Engineer",
+            "link": "https://www.indeed.com/jobs?q=machine+learning+engineer",
+            "company": "AI Solutions Corp"
+        },
+        {
+            "title": "Data Science Manager",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Data%20Science%20Manager",
+            "company": "Analytics Leadership Group"
+        },
+        {
+            "title": "Research Scientist",
+            "link": "https://www.glassdoor.com/Job/research-scientist-jobs-SRCH_KO0,18.htm",
+            "company": "Innovation Labs"
+        }
+    ],
+    "digital marketer": [
+        {
+            "title": "Digital Marketing Specialist",
+            "link": "https://academy.hubspot.com/courses/digital-marketing?form=MG0AV3",
+            "company": "MarketingPro"
+        },
+        {
+            "title": "SEO Analyst",
+            "link": "https://moz.com/beginners-guide-to-seo?form=MG0AV3",
+            "company": "SearchTech"
+        },
+        {
+            "title": "Social Media Manager",
+            "link": "https://www.indeed.com/jobs?q=social+media+manager",
+            "company": "SocialBuzz Inc."
+        },
+        {
+             "title": "PPC Specialist",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=PPC%20Specialist",
+            "company": "AdWords Experts"
+        },
+        {
+            "title": "Digital Marketing Manager",
+            "link": "https://www.glassdoor.com/Job/digital-marketing-manager-jobs-SRCH_KO0,25.htm",
+            "company": "Online Growth Strategies"
+        }
+
+    ],
+    "content writer": [
+        {
+            "title": "Content Writer",
+            "link": "https://contentmarketinginstitute.com/articles/writing-examples-tools-tips/?form=MG0AV3",
+            "company": "WriteWell"
+        },
+        {
+            "title": "Copywriter",
+            "link": "https://www.henryharvin.com/blog/content-writing-platforms/",
+            "company": "AdText"
+        },
+         {
+            "title": "Technical Writer",
+            "link": "https://www.indeed.com/jobs?q=technical+writer",
+            "company": "DocuTech Solutions"
+        },
+        {
+            "title": "Content Strategist",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Content%20Strategist",
+            "company": "Content Planning Group"
+        },
+        {
+            "title": "SEO Content Writer",
+            "link": "https://www.glassdoor.com/Job/seo-content-writer-jobs-SRCH_KO0,18.htm",
+            "company": "Search Optimized Writing"
+        }
+    ],
+    "graphic designer": [
+        {
+            "title": "Graphic Designer",
+            "link": "https://www.timechamp.io/blogs/explore-the-top-10-freelance-graphic-design-websites/",
+            "company": "DesignHub"
+        },
+        {
+            "title": "Creative Visualizer",
+            "link": "https://365datascience.com/trending/data-visualization-project-ideas/",
+            "company": "VisualWorks"
+        },
+        {
+            "title": "UI/UX Designer",
+            "link": "https://www.indeed.com/jobs?q=ui%2Fux+designer",
+            "company": "Interface Design Experts"
+        },
+        {
+            "title": "Brand Designer",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Brand%20Designer",
+            "company": "Identity Creative Group"
+        },
+        {
+            "title": "Motion Graphics Designer",
+            "link": "https://www.glassdoor.com/Job/motion-graphics-designer-jobs-SRCH_KO0,25.htm",
+            "company": "Animated Visuals Inc."
+        }
+    ],
+    "financial analyst": [
+        {
+            "title": "Financial Analyst",
+            "link": "https://romeromentoring.com/financial-analyst-skills/",
+            "company": "FinCorp"
+        },
+        {
+            "title": "Investment Analyst",
+            "link": "https://www.ollusa.edu/blog/financial-analyst-skills.html",
+            "company": "InvestWell"
+        },
+        {
+            "title": "Senior Financial Analyst",
+            "link": "https://www.indeed.com/jobs?q=senior+financial+analyst",
+            "company": "Financial Strategies Group"
+        },
+        {
+            "title": "Corporate Finance Analyst",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Corporate%20Finance%20Analyst",
+            "company": "Enterprise Finance Solutions"
+        },
+        {
+            "title": "Financial Planning & Analysis Analyst",
+            "link": "https://www.glassdoor.com/Job/financial-planning-analysis-analyst-jobs-SRCH_KO0,39.htm",
+            "company": "FP&A Experts"
+        }
+    ],
+    "cybersecurity specialist": [
+        {
+            "title": "Cybersecurity Analyst",
+            "link": "https://www.infosectrain.com/courses/cybersecurity-analyst-training/",
+            "company": "SecureTech"
+        },
+        {
+            "title": "Penetration Tester",
+            "link": "https://www.coursera.org/in/articles/how-to-become-a-penetration-tester",
+            "company": "CyberProtect"
+        },
+        {
+           "title": "Security Engineer",
+           "link": "https://www.indeed.com/jobs?q=security+engineer",
+           "company": "CyberDefense Solutions"
+        },
+        {
+            "title": "Information Security Analyst",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Information%20Security%20Analyst",
+            "company": "InfoSec Professionals"
+        },
+        {
+            "title": "SOC Analyst",
+            "link": "https://www.glassdoor.com/Job/soc-analyst-jobs-SRCH_KO0,11.htm",
+            "company": "Security Operations Center"
+        }
+    ],
+    "cloud engineer": [
+        {
+            "title": "Cloud Architect",
+            "link": "https://www.coursera.org/articles/how-to-become-a-cloud-architect",
+            "company": "Cloudify"
+        },
+        {
+            "title": "DevOps Engineer",
+            "link": "https://www.geeksforgeeks.org/devops-engineer-skills/",
+            "company": "BuildTech"
+        },
+        {
+            "title": "Cloud Security Engineer",
+            "link":  "https://www.indeed.com/jobs?q=cloud+security+engineer",
+            "company": "CloudSecure Solutions"
+        },
+        {
+            "title": "Cloud Solutions Architect",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Cloud%20Solutions%20Architect",
+            "company": "Cloud Consulting Group"
+        },
+        {
+            "title": "Cloud Infrastructure Engineer",
+            "link": "https://www.glassdoor.com/Job/cloud-infrastructure-engineer-jobs-SRCH_KO0,30.htm",
+            "company": "Cloud Infrastructure Inc."
+        }
+    ],
+    "blockchain developer": [
+        {
+            "title": "Blockchain Engineer",
+            "link": "https://www.gsdcouncil.org/blogs/blockchain-developer-skills",
+            "company": "LedgerTech"
+        },
+        {
+            "title": "Smart Contract Developer",
+            "link": "https://www.techtarget.com/searchcio/tip/How-to-become-a-smart-contract-developer",
+            "company": "CryptoHub"
+        },
+         {
+            "title": "Blockchain Developer",
+            "link": "https://www.indeed.com/jobs?q=blockchain+developer",
+            "company": "Distributed Ledger Tech"
+        },
+        {
+            "title": "Solidity Developer",
+            "link": "https://www.linkedin.com/jobs/search/?keywords=Solidity%20Developer",
+            "company": "Ethereum Solutions"
+        },
+        {
+            "title": "Web3 Developer",
+            "link": "https://www.glassdoor.com/Job/web3-developer-jobs-SRCH_KO0,14.htm",
+            "company": "Decentralized Apps Inc."
+        }
+    ]
+}

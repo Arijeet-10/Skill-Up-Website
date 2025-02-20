@@ -1,0 +1,447 @@
+:root {
+    --primary-color: #2A2E45;
+    --accent-color: #3B8EA5;
+    --light-bg: #F9F9F9;
+    --course-color: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    --video-color: linear-gradient(135deg, #E91E63 0%, #c2185b 100%);
+    --job-color: linear-gradient(135deg, #673AB7 0%, #512da8 100%);
+    --roadmap-color: linear-gradient(135deg, #FFC107 0%, #FFA000 100%); /* Added roadmap color */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: var(--primary-color);
+    background: var(--light-bg);
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll on small screens */
+}
+
+.main-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.tagline {
+    font-weight: 300;
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Form Section Styling */
+.form-section {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    margin-bottom: 3rem; /* Added margin bottom */
+}
+
+.form-section:hover {
+    transform: translateY(-5px);
+}
+
+.form-card {
+    padding: 2rem;
+}
+
+.form-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.form-group input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(59, 142, 165, 0.2);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);  /* Add slight shadow */
+}
+
+.submit-btn:hover {
+    background: #2c6e7e;
+    letter-spacing: 1px;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Results Section Styling */
+.results-section {
+    margin-top: 3rem;
+}
+
+.results-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    padding: 2rem;
+}
+
+.results-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.recommendation-category {
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.category-header {
+    padding: 1.5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.category-header:hover {
+    transform: scale(1.02);
+}
+
+.course-bg { background: var(--course-color); }
+.video-bg { background: var(--video-color); }
+.job-bg { background: var(--job-color); }
+.roadmap-bg { background: var(--roadmap-color); } /* Road map header background */
+
+.recommendation-list {
+    padding: 1.5rem;
+    list-style: none;
+}
+
+.recommendation-list li {
+    margin: 0.75rem 0;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: fadeInRight 0.5s ease forwards;
+}
+
+.resource-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.resource-link:hover {
+    transform: translateX(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.resource-link i {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+}
+
+.platform, .company {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.3rem;
+}
+
+.roadmap-step {
+    padding: 1.25rem;
+     border-radius: 8px;
+     background: #f8f8f8;
+     box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 0.5rem;
+       border: 1px solid #ddd;
+}
+
+.main-footer {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .resource-link {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .main-header {
+        padding: 1.5rem 0;
+    }
+    
+    .logo {
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+    }
+    
+    .container {
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+    }
+    
+     .form-card, .results-card {
+         padding: 1.5rem;
+     }
+    
+    .results-title, .form-title {
+       font-size: 1.5rem;
+    }
+     .category-header {
+        padding: 1rem;
+     }
+    
+     .recommendation-list {
+         padding: 1rem;
+     }
+    
+     .resource-link {
+         padding: 0.8rem;
+          gap: 0.8rem;
+     }
+     
+     .resource-link i {
+          font-size: 1.3rem;
+          width: 30px;
+     }
+    
+      .form-group {
+        margin-bottom: 1rem;
+      }
+    
+    .roadmap-step {
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .form-card, .results-card {
+        padding: 1.75rem;
+    }
+}
+
+#user-section {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
+
+#logout-option {
+    display: none;
+    position: absolute;
+    right: 0;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#logout-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+}
+
+#logout-btn:hover {
+    color: #ff3860;
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #6C63FF, #2A2D7C);
+    color: white;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.cta-btn {
+    background: #FFD700;
+    color: #2A2D7C;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero-image img {
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    padding: 60px 20px;
+    background: #f9f9f9;
+    text-align: center;
+}
+
+.testimonials-section h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+.testimonials-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+}
+
+.testimonial-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.testimonial-card p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.testimonial-card span {
+    font-weight: bold;
+    color: #6C63FF;
+}

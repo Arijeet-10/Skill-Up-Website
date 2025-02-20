@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SkillUp</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="container">
+        <section class="form-section">
+            <div class="form-card">
+                <h1 class="main-heading pulse">SKILLUP</h1>
+                <div class="container" id="container">
+                    <div class="form-container sign-up-container">
+                        <form id="signup-form" class="career-form">
+                            <h2 class="form-title">Create Account</h2>
+                            <div class="form-group">
+                                <label for="signup-email"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" id="signup-email" name="email" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="signup-password"><i class="fas fa-lock"></i> Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="signup-password" name="password" placeholder="Create a password" required>
+                                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('signup-password')"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirm-password"><i class="fas fa-lock"></i> Confirm Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your password" required>
+                                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('confirm-password')"></i>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group">
+                                <label for="contact-number"><i class="fas fa-phone"></i> Contact Number</label>
+                                <input type="tel" id="contact-number" name="contact_number" placeholder="Enter your contact number" required>
+                            </div> -->
+
+                            <button type="submit" class="submit-btn">
+                                Sign Up <i class="fas fa-arrow-right"></i>
+                            </button>
+
+                        </form>
+                    </div>
+                    <div class="form-container sign-in-container">
+                        <form id="login-form" class="career-form">
+                            <h2 class="form-title">Sign in</h2>
+                            <div class="form-group">
+                                <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password"><i class="fas fa-lock"></i> Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('password')"></i>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                Login <i class="fas fa-arrow-right"></i>
+                            </button>
+
+                        </form>
+                    </div>
+                    <div class="overlay-container">
+                        <div class="overlay">
+                            <div class="overlay-panel overlay-left">
+                                <h1>Welcome Back!</h1>
+                                <p>To keep connected with us please login with your personal info</p>
+                                <button class="ghost" id="signIn">Sign In</button>
+                            </div>
+                            <div class="overlay-panel overlay-right">
+                                <h1>Hello, Friend!</h1>
+                                <p>Enter your personal details and start journey with us</p>
+                                <button class="ghost" id="signUp">Sign Up</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>
+            <i class="fas fa-heartbeat pulse" style="color: #ff3860"></i>
+            © 2023 SkillUp. Empowering career growth through AI-powered insights.
+        </p>
+    </footer>
+
+    <script>
+         // Enhanced Toggle Password Visibility
+         function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = event.target; // Get the clicked icon
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+
+        // Smooth Form Switching
+        document.querySelectorAll('#signup-link, #login-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelector('.form-card').classList.toggle('active');
+            });
+        });
+
+        // Handle login form submission
+        document.getElementById('login-form').onsubmit = async function (e) {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('.submit-btn');
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Logging in...`;
+            submitBtn.disabled = true;
+
+            try {
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+
+                // Call the backend login endpoint
+                const response = await fetch('http://localhost:5000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Save the token in localStorage (or sessionStorage)
+                    localStorage.setItem('token', result.token);
+                    window.location.href = 'http://127.0.0.1:5000/'; // Redirect to the main page
+                } else {
+                    alert(result.message || 'Login failed. Please check your credentials.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while logging in.');
+            } finally {
+                submitBtn.innerHTML = `Login <i class="fas fa-arrow-right"></i>`;
+                submitBtn.disabled = false;
+            }
+        };
+
+        // Handle signup form submission
+        document.getElementById('signup-form').onsubmit = async function (e) {
+            e.preventDefault();
+            const submitBtn = e.target.querySelector('.submit-btn');
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Signing up...`;
+            submitBtn.disabled = true;
+
+            try {
+                const formData = new FormData(e.target);
+
+                // Validate password match
+                const password = formData.get('password');
+                const confirmPassword = formData.get('confirm_password');
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+
+                // Call the backend signup endpoint
+                const response = await fetch('http://localhost:5000/signup', {
+                    method: 'POST',
+                    body: formData, // Send FormData directly for file upload
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Save the token in localStorage (or sessionStorage)
+                    localStorage.setItem('token', result.token);
+                    window.location.href = 'http://127.0.0.1:5000/'; // Redirect to the main page
+                } else {
+                    alert(result.message || 'Signup failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while signing up.');
+            } finally {
+                submitBtn.innerHTML = `Sign Up <i class="fas fa-arrow-right"></i>`;
+                submitBtn.disabled = false;
+            }
+        };
+
+        // Add input field interactions
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('active');
+            });
+            
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('active');
+            });
+        });
+
+        // Toggle between login and signup forms
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+    </script>
+</body>
+</html>
