@@ -156,8 +156,8 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 For any questions or feedback, please contact:
 
-- **Your Name**: [your.email@example.com](mailto\:your.email@example.com)
-- **GitHub**: [your-username](https://github.com/your-username)
+- **Your Name**: [Arijeet Das](mailto\:arijeetdas999@gmail.com)
+- **GitHub**: [Arijeet-10](https://github.com/Arijeet-10)
 
 ---
 
@@ -167,9 +167,11 @@ Here are some screenshots of the Skill UP application:
 
 ### Login Page
 
-
+![Login Page](images/login_page.png)
 
 ### Main Page
+
+![Main Page](images/main_page.png)
 
 
 
